@@ -1,0 +1,64 @@
+<h2>{{ name }}</h2>
+
+<div class="form-group">
+  <strong>Choose Download Detail Level:</strong>
+  <br />
+  <input
+    type="radio"
+    id="groupedAPI"
+    name="selectionInfo"
+    [checked]="userSelectionRawAPI"
+    (change)="handleRawApiChange($event)"
+  />
+
+  <div class="tooltip">
+    <label>Raw API Data</label>
+    <span class="tooltiptext"
+      >This option will download the most simple format of API data(no added
+      processing)</span
+    >
+  </div>
+  <br />
+
+  <input
+    type="radio"
+    id="onlyAPI"
+    name="selectionInfo"
+    [checked]="userSelectionOnlyAPI"
+    (change)="handleOnlyAPIChange($event)"
+  />
+
+  <div class="tooltip">
+    <label>Grouped API Data</label>
+    <span class="tooltiptext"
+      >This option will club multiple calls of the same API within an action and
+      provide more fine data (some processing)</span
+    >
+  </div>
+  <br />
+
+  <input
+    type="radio"
+    id="groupedAPI"
+    name="selectionInfo"
+    [checked]="userSelectionGrouped"
+    (change)="handleGroupeChange($event)"
+  />
+  <div class="tooltip">
+    <label>Action Grouped Data</label>
+    <span class="tooltiptext"
+      >This option will process data at user action level e.g Pricing, Finalize
+      etc(most processed data)</span
+    >
+  </div>
+  <br />
+
+  <br />
+  <label for="file">Upload HAR</label> <br />
+  <input
+    type="file"
+    id="file"
+    (click)="this.resetFileName($event)"
+    (change)="this.handleFileInput($event)"
+  />
+</div>
