@@ -1,76 +1,79 @@
-<link
-  rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.js"></script>
 <style>
-  			.std_loadingBackground {
-      font-family: Verdana,Arial;
-      filter: Alpha(Opacity=30);
-      -moz-opacity: .3;
-      opacity: .6;
-      width: 100%;
-      height: 1000px;
-      background-color: #000;
-      position: fixed;
-      z-index: 500;
-      top: 0;
-      left: 0;
+  .std_loadingBackground {
+    font-family: Verdana, Arial;
+    filter: Alpha(Opacity=30);
+    -moz-opacity: .3;
+    opacity: .6;
+    width: 100%;
+    height: 1000px;
+    background-color: #000;
+    position: fixed;
+    z-index: 500;
+    top: 0;
+    left: 0;
 
   }
-  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-      color: white;
-      background-color: #B8DC00;
+
+  .navbar-default .navbar-nav>.active>a,
+  .navbar-default .navbar-nav>.active>a:focus,
+  .navbar-default .navbar-nav>.active>a:hover {
+    color: white;
+    background-color: #B8DC00;
   }
+
   .icon-btn {
-      padding: 1px 15px 3px 2px;
-      border-radius: 50px;
+    padding: 1px 15px 3px 2px;
+    border-radius: 50px;
   }
+
   .img-circle {
-      border-radius: 50%;
+    border-radius: 50%;
   }
+
   .text-success {
-      color: #3c763d;
+    color: #3c763d;
   }
+
   .btn-glyphicon {
-      padding: 8px;
-      background: #ffffff;
-      margin-right: 4px;
+    padding: 8px;
+    background: #ffffff;
+    margin-right: 4px;
   }
 
   .navbar-default .navbar-brand {
-      color: White;
+    color: White;
   }
+
   .std_modalContainer {
-      position: fixed;
-      left: 40%;
-      top: 40%;
-      z-index: 750;
-      background-color: #f2f4f5;
-      padding: 6px;
-      border-radius: 4px;
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
-      box-shadow: 5px 5px 5px rgba(0,0,0,.3);
-      /*border: 0 solid #d0d0d0;*/
-       border: 3px solid rgb(170, 0, 0)
-      -webkit-box-shadow: 5px 5px rgba(0,0,0,.3);
-      -moz-box-shadow: 5px 5px rgba(0,0,0,.3);
+    position: fixed;
+    left: 40%;
+    top: 40%;
+    z-index: 750;
+    background-color: #f2f4f5;
+    padding: 6px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .3);
+    /*border: 0 solid #d0d0d0;*/
+    border: 3px solid rgb(170, 0, 0) -webkit-box-shadow: 5px 5px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 5px 5px rgba(0, 0, 0, .3);
 
   }
+
   .std_processing {
-   font-family: Verdana,Arial;
-      text-align: center;color: rgb(0, 0, 0);
-      padding: 15px 15px 0 15px;
-      width: 40%;
-      /*border: 'none',
+    font-family: Verdana, Arial;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 15px 15px 0 15px;
+    width: 40%;
+    /*border: 'none',
       padding: '15px',
       backgroundColor: '#000',
       '-webkit-border-radius': '10px',
@@ -86,23 +89,49 @@
               color: '#fff'*/
   }
 
-  			.footer_bottom{
-  			margin-top: 140px;
-      padding-top: 10px;
-      color: white;
-      background-color: black;
-  		}
+  .footer_bottom {
+    margin-top: 140px;
+    padding-top: 10px;
+    color: white;
+    background-color: black;
+  }
 
-  	.jumbotron {
-      padding-right: 60px;
-      border: 2px solid #447e38;
-      padding-left: 60px;
+  .jumbotron {
+    padding-right: 60px;
+    border: 2px solid #447e38;
+    padding-left: 60px;
   }
-  .navbar-default .navbar-nav>li>a:hover{
-  	background-color: #B8DC00;
+
+  .navbar-default .navbar-nav>li>a:hover {
+    background-color: #B8DC00;
   }
+
   .navbar-default .navbar-nav>li>a {
-     color: white;
+    color: white;
+  }
+
+  .tooltip1 {
+    position: relative;
+    display: inline-block;
+
+  }
+
+  .tooltip1 .tooltiptext1 {
+    visibility: hidden;
+    width:220px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+
+  .tooltip1:hover .tooltiptext1 {
+    visibility: visible;
   }
 </style>
 <!-- Static navbar -->
@@ -133,9 +162,8 @@
       <ul class="nav navbar-nav navbar-right">
         <!--<li class="active"><a href="#"><i class="fa fa-code-fork"></i><span>Sorce Code</span></a></li>-->
         <li>
-          <a href="" data-toggle="modal" data-target="#myModal"
-            ><i class="fa fa-question-circle"></i><span>&nbsp;Help</span></a
-          >
+          <a href="" data-toggle="modal"
+            data-target="#myModal"><i class="fa fa-question-circle"></i><span>&nbsp;Help</span></a>
         </li>
         <!-- Modal -->
         <div class="modal" id="myModal">
@@ -151,8 +179,7 @@
                   <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title">
-                  <span>Package Creator Help &nbsp;</span
-                  ><i class="fa fa-question-circle"></i>
+                  <span>Package Creator Help &nbsp;</span><i class="fa fa-question-circle"></i>
                 </h4>
               </div>
               <div class="modal-body">
@@ -179,8 +206,7 @@
                       Contact for any questions and issues :<i
                         class="fa fa-envelope-o"
                         style="font-size: 14px;"
-                        >&nbsp;</i
-                      >
+                        >&nbsp;</i>
                       <span class="small">test@gmail.com</span>
                     </li>
                   </ul>
@@ -190,13 +216,7 @@
               <div class="modal-footer">
                 <!--<a href="" class="btn btn-primary pull-left" ><i class="fa fa-phone"></i><span>&nbsp;Contact</span></a>-->
 
-                <a
-                  href=""
-                  class="btn btn-default"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                  >Close</a
-                >
+                <a href="" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</a>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -239,8 +259,7 @@
             name="selectionInfo"
             [checked]="userSelectionRawAPI"
             (change)="handleRawApiChange($event)"
-          />Raw API Data</label
-        >
+          />Raw API Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will download the most simple format of API data(no added processing)</span></i>
       </div>
       <div class="radio">
         <label>
@@ -250,8 +269,7 @@
             name="selectionInfo"
             [checked]="userSelectionOnlyAPI"
             (change)="handleOnlyAPIChange($event)"
-          />Grouped API Data</label
-        >
+          />Grouped API Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will group together API names with same name , providing better processing</span></i>
       </div>
       <div class="radio">
         <label
@@ -261,8 +279,7 @@
             name="selectionInfo"
             [checked]="userSelectionGrouped"
             (change)="handleGroupeChange($event)"
-          />Action Grouped Data</label
-        >
+          />Action Grouped Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will process data at user action level e.g Pricing, Finalize etc(most processed data)</span></i>
       </div>
       <div></div>
       <hr />
@@ -272,8 +289,7 @@
             <div class="form-group">
               <div class="row">
                 <label class="control-label col-md-2 text-left" for="filename"
-                  ><span>Upload HAR</span></label
-                >
+                  ><span>Upload HAR</span></label>
 
                 <div class="col-md-8">
                   <div class="input-group">
@@ -298,42 +314,40 @@
           </div>
         </div>
 
-       
+
       </div>
     </div>
-     <div class="container">
-          <p>Description</p>
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>ActionGroup</th>
-                  <th>Action Name</th>
-                  <th>Total Time (ms)</th>
-                  <th>Total Calls</th>
-                  <th>Avg Time Per Call</th>
-                  <th>Wait Time</th>
-                  <th>Block time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Action1</td>
-                  <td>getDefaultLineItemRollup</td>
-                  <td>567.378</td>
-                  <td>1</td>
-                  <td>567.378</td>
-                  <td>567.378</td>
-                  <td>2.436</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div class="container">
+      <p>Description</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ActionGroup</th>
+              <th>Action Name</th>
+              <th>Total Time (ms)</th>
+              <th>Total Calls</th>
+              <th>Avg Time Per Call</th>
+              <th>Wait Time</th>
+              <th>Block time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Action1</td>
+              <td>getDefaultLineItemRollup</td>
+              <td>567.378</td>
+              <td>1</td>
+              <td>567.378</td>
+              <td>567.378</td>
+              <td>2.436</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  
+
 </div>
-
-
