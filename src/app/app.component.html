@@ -320,12 +320,11 @@
     <div class="container">
       <p>Description</p>
       <div class="table-responsive">
-        {{headers}}
         <table class="table">
           <thead>
             <tr>
               <th>#</th>
-              <!--<th *ngFor="let header of this.headers">{{header}}</th>-->
+              <!-- <th *ngFor="let header of this.headers">{{header}}</th>-->
               <th>ActionGroup</th>
               <th>Action Name</th>
               <th>Total Time (ms)</th>
@@ -347,7 +346,14 @@
               <td>2.436</td>
             </tr>-->
             <tr *ngFor="let item of this.headers">
-              <td>{{ item}}</td>
+              <td>{{ item['rowIndex']}}</td>
+              <td>{{ item['ActionGroup']}}</td>
+              <td>{{ item['ActionName'] }}</td>
+              <td>{{ item['TotalTimems'] }}</td>
+              <td>{{ item['TotalCalls'] }}</td>
+              <td>{{ item['AvgTimePerCall'] }}</td>
+              <td>{{ item['WaitTime'] }}</td>
+              <td>{{ item['Blocktime'] }}</td>
             </tr>
           </tbody>
         </table>

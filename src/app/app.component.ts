@@ -8,7 +8,7 @@ import { APIDetail } from './APIDetail';
 })
 export class AppComponent {
   name = 'CPQ API Analyzer ' + '1.0';
-  headers: string[] = [];
+  headers: Object[] = [];
   userSelectionOnlyAPI: boolean = false;
   userSelectionGrouped: boolean = false;
   userSelectionRawAPI: boolean = true;
@@ -327,7 +327,8 @@ export class AppComponent {
           let csvData: string = '';
           let refineLvl = getLevel();
           console.debug(refineLvl);
-          let tableheaders: string[] = [];
+          let tableheaders = new Object();
+          let rowIndex = 0;
           csvData +=
             'ActionGroup' +
             ',' +
@@ -349,11 +350,14 @@ export class AppComponent {
           csvData += '\r\n';
           if (self.userSelectionRawAPI === true) {
             rawApis.forEach((value: APIDetail) => {
-              tableheaders.push('ActionGroup', value.MarkerAction);
-              tableheaders.push('Action Name', value.APIName.toString());
-              tableheaders.push('Total Time (ms)', value.NetTime.toString());
-              tableheaders.push('Total Calls', '1');
-              tableheaders.push('Avg Time Per Call', value.NetTime.toString());
+              tableheaders = new Object();
+              rowIndex++;
+              tableheaders['rowIndex'] = rowIndex;
+              tableheaders['ActionGroup'] = value.MarkerAction;
+              tableheaders['ActionName'] = value.APIName;
+              tableheaders['TotalTimems'] = value.NetTime;
+              tableheaders['TotalCalls'] = '1';
+              tableheaders['AvgTimePerCall'] = value.NetTime;
               csvData +=
                 value.MarkerAction +
                 ',' +
@@ -370,13 +374,12 @@ export class AppComponent {
                   (value.APIName != '' ? value.WaitTime : '') +
                   ',' +
                   (value.APIName != '' ? value.BlockTime : '');
-                tableheaders.push('Wait Time', value.WaitTime.toString());
-                tableheaders.push('Block time', value.BlockTime.toString());
+                tableheaders['WaitTime'] = value.WaitTime;
+                tableheaders['Blocktime'] = value.BlockTime;
               }
               csvData += '\r\n';
+              self.headers.push(tableheaders);
             });
-            self.headers = tableheaders;
-            console.log('this.headers-->' + tableheaders);
           } else {
             allData.forEach(
               (
