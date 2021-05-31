@@ -1,17 +1,18 @@
-import { Component, Input, VERSION } from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { APIDetail } from "./APIDetail";
+import { Component, Input, VERSION } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { APIDetail } from './APIDetail';
 @Component({
-  selector: "my-app",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  name = "CPQ API Analyzer " + "1.0";
+  name = 'CPQ API Analyzer ' + '1.0';
+  headers: string[] = [];
   userSelectionOnlyAPI: boolean = false;
   userSelectionGrouped: boolean = false;
   userSelectionRawAPI: boolean = true;
-  fileNameToUse: string = "report";
+  fileNameToUse: string = 'report';
   fileToUpload: File = null;
   handleOnlyAPIChange = evt => {
     this.userSelectionOnlyAPI = evt.target.checked;
@@ -36,20 +37,20 @@ export class AppComponent {
     var self = this;
     function getLevel() {
       let lvl;
-      if (self.userSelectionGrouped) lvl = "Fine";
-      else if (self.userSelectionOnlyAPI) lvl = "Coarse";
-      else if (self.userSelectionRawAPI === true) lvl = "Raw";
+      if (self.userSelectionGrouped) lvl = 'Fine';
+      else if (self.userSelectionOnlyAPI) lvl = 'Coarse';
+      else if (self.userSelectionRawAPI === true) lvl = 'Raw';
       return lvl;
     }
     function getFileNamePrefix() {
       let lvl;
-      if (self.userSelectionGrouped) lvl = "groupedaction";
-      else if (self.userSelectionOnlyAPI) lvl = "groupedapi";
-      else if (self.userSelectionRawAPI === true) lvl = "rawapi";
+      if (self.userSelectionGrouped) lvl = 'groupedaction';
+      else if (self.userSelectionOnlyAPI) lvl = 'groupedapi';
+      else if (self.userSelectionRawAPI === true) lvl = 'rawapi';
       return lvl;
     }
     let fileList: FileList = event.target.files;
-    let apiList: String[] = ["updatePrice", "updateCartLineItems"];
+    let apiList: String[] = ['updatePrice', 'updateCartLineItems'];
     if (fileList.length > 0) {
       let file: File = fileList[0];
       self.fileNameToUse = file.name;
@@ -108,15 +109,15 @@ export class AppComponent {
             ) {
               var setter;
               switch (parseStrategy) {
-                case "Coarse": {
+                case 'Coarse': {
                   addDataWithinMaps(parsedApis, cpqMethod, req, action);
                   break;
                 }
-                case "Fine": {
+                case 'Fine': {
                   addDataWithinMaps(parsedApis, category, req, action);
                   break;
                 }
-                case "Raw": {
+                case 'Raw': {
                   setter = rawApis;
                   let data = new APIDetail();
                   data.APIName = cpqMethod;
@@ -147,7 +148,7 @@ export class AppComponent {
             };
             let i = 1;
             function addAction() {
-              return "Action" + i++;
+              return 'Action' + i++;
             }
             function initializeMaps() {
               parsedApis = new Map();
@@ -163,12 +164,12 @@ export class AppComponent {
             allData.set(action, superMap);
             for (let entry of payLoad) {
               if (
-                entry.request.method == "POST" &&
+                entry.request.method == 'POST' &&
                 entry.request.postData != null &&
                 !(
                   (entry.request.postData.text != null &&
-                    entry.request.postData.text.includes("long-polling")) ||
-                  entry.request.url.includes("cometd/24.0/")
+                    entry.request.postData.text.includes('long-polling')) ||
+                  entry.request.url.includes('cometd/24.0/')
                 )
               ) {
                 let apiInLoad = entry.request.postData.text;
@@ -178,105 +179,105 @@ export class AppComponent {
                 } catch (e) {
                   continue;
                 }
-                if (postJData.method == "performAction") {
+                if (postJData.method == 'performAction') {
                   if (
                     postJData.data != null &&
                     postJData.data[0] != null &&
                     ((postJData.data[0].displayAction != null &&
                       postJData.data[0].displayAction.ActionLabelName ==
-                        "QuickSave") ||
+                        'QuickSave') ||
                       superMap.entries.length == 0)
                   ) {
                     initializeMaps();
                   }
                 } else {
                   //  debugger ;
-                  console.log("Method :" + postJData.method);
-                  var downloadGrouped = document.getElementById("groupedAPI");
+                  console.log('Method :' + postJData.method);
+                  var downloadGrouped = document.getElementById('groupedAPI');
                   let refineLevel = getLevel();
 
                   switch (postJData.method) {
-                    case "updatePrice":
-                    case "updateCartTotals":
-                    case "updateCartLineItems": {
+                    case 'updatePrice':
+                    case 'updateCartTotals':
+                    case 'updateCartLineItems': {
                       addtoList(
                         action,
-                        "Pricing",
+                        'Pricing',
                         postJData.method,
                         entry,
                         refineLevel
                       );
                       break;
                     }
-                    case "updateLineItemSequence":
-                    case "cloneBundleLineItem": {
+                    case 'updateLineItemSequence':
+                    case 'cloneBundleLineItem': {
                       addtoList(
                         action,
-                        "Copy Cart Lines",
+                        'Copy Cart Lines',
                         postJData.method,
                         entry,
                         refineLevel
                       );
                       break;
                     }
-                    case "getGuidePageUrl":
-                    case "getRecommendedProducts":
-                    case "getGuidePageUrl":
-                    case "getCategories": {
+                    case 'getGuidePageUrl':
+                    case 'getRecommendedProducts':
+                    case 'getGuidePageUrl':
+                    case 'getCategories': {
                       addtoList(
                         action,
-                        "LaunchCatalog",
+                        'LaunchCatalog',
                         postJData.method,
                         entry,
                         refineLevel
                       );
                     }
-                    case "executeConstraintRules":
-                    case "configureBundle":
-                    case "getConstraintRuleProducts":
-                    case "saveConstraintsResults":
-                    case "addToCart": {
+                    case 'executeConstraintRules':
+                    case 'configureBundle':
+                    case 'getConstraintRuleProducts':
+                    case 'saveConstraintsResults':
+                    case 'addToCart': {
                       addtoList(
                         action,
-                        "AddToCart",
-                        postJData.method,
-                        entry,
-                        refineLevel
-                      );
-                      break;
-                    }
-                    case "searchFavoriteConfigurations":
-                    case "getProductGroups":
-                    case "searchProducts":
-                    case "getConfigurationData": {
-                      addtoList(
-                        action,
-                        "SearchProducts",
+                        'AddToCart',
                         postJData.method,
                         entry,
                         refineLevel
                       );
                       break;
                     }
-                    case "createRollupSummaryGroupsForConfigCart":
-                    case "initCart":
-                    case "getCartSummary":
-                    case "getConfigCartDO":
-                    case "getDefaultLineItemRollup":
-                    case "getCart":
-                    case "getCartLineNumbers":
-                    case "getLineItemFieldsMetaData":
-                    case "getSObjectPermissions":
-                    case "getAllCartViews":
-                    case "getObjectForSummary":
-                    case "getAnalyticsRecommendedProducts":
-                    case "getReferenceObjects":
-                    case "getCartLineItems":
-                    case "getChildCartLineItems":
-                    case "getProductDetails": {
+                    case 'searchFavoriteConfigurations':
+                    case 'getProductGroups':
+                    case 'searchProducts':
+                    case 'getConfigurationData': {
                       addtoList(
                         action,
-                        "CartLaunch",
+                        'SearchProducts',
+                        postJData.method,
+                        entry,
+                        refineLevel
+                      );
+                      break;
+                    }
+                    case 'createRollupSummaryGroupsForConfigCart':
+                    case 'initCart':
+                    case 'getCartSummary':
+                    case 'getConfigCartDO':
+                    case 'getDefaultLineItemRollup':
+                    case 'getCart':
+                    case 'getCartLineNumbers':
+                    case 'getLineItemFieldsMetaData':
+                    case 'getSObjectPermissions':
+                    case 'getAllCartViews':
+                    case 'getObjectForSummary':
+                    case 'getAnalyticsRecommendedProducts':
+                    case 'getReferenceObjects':
+                    case 'getCartLineItems':
+                    case 'getChildCartLineItems':
+                    case 'getProductDetails': {
+                      addtoList(
+                        action,
+                        'CartLaunch',
                         postJData.method,
                         entry,
                         refineLevel
@@ -284,7 +285,7 @@ export class AppComponent {
                       break;
                     }
                     default: {
-                      if (refineLevel == "Fine") {
+                      if (refineLevel == 'Fine') {
                         addDataWithinMaps(
                           nonParsedApis,
                           postJData.method,
@@ -300,8 +301,8 @@ export class AppComponent {
                           refineLevel
                         );
                       }
-                      console.log("Defaulted method: " + postJData.method);
-                      console.log("Untracked data: " + JSON.stringify(entry));
+                      console.log('Defaulted method: ' + postJData.method);
+                      console.log('Untracked data: ' + JSON.stringify(entry));
                       break;
                     }
                   }
@@ -309,8 +310,8 @@ export class AppComponent {
               } else {
                 allOtherTime += entry.time;
                 allOtherCallCount++;
-                console.log("Misc call URL: " + entry.request.url);
-                console.log("Misc call time: " + entry.time);
+                console.log('Misc call URL: ' + entry.request.url);
+                console.log('Misc call time: ' + entry.time);
               }
             }
           }
@@ -318,122 +319,132 @@ export class AppComponent {
           return parsedApis;
         };
         let apiData = flatten(jsonObj);
-        console.log("Tracked apiData" + JSON.stringify(apiData));
-        console.log("Non grouped apiData" + JSON.stringify(nonParsedApis));
-        console.log("Non grouped raw apiData" + JSON.stringify(rawApis));
+        console.log('Tracked apiData' + JSON.stringify(apiData));
+        console.log('Non grouped apiData' + JSON.stringify(nonParsedApis));
+        console.log('Non grouped raw apiData' + JSON.stringify(rawApis));
+
         let downloader = function downloadAsCSV() {
-          let csvData: string = "";
+          let csvData: string = '';
           let refineLvl = getLevel();
           console.debug(refineLvl);
-
+          let tableheaders: string[] = [];
           csvData +=
-            "ActionGroup" +
-            "," +
-            "Action Name" +
-            "," +
-            "Total Time (ms)" +
-            "," +
-            "Total Calls" +
-            "," +
-            "Avg Time Per Call";
-          if (refineLvl == "Raw") {
-            csvData += "," + "Wait Time" + "," + "Block time";
+            'ActionGroup' +
+            ',' +
+            'Action Name' +
+            ',' +
+            'Total Time (ms)' +
+            ',' +
+            'Total Calls' +
+            ',' +
+            'Avg Time Per Call';
+          if (refineLvl == 'Raw') {
+            csvData += ',' + 'Wait Time' + ',' + 'Block time';
           }
-          csvData += "\r\n";
-          csvData += "" + "," + "," + "," + ",";
-          if (refineLvl == "Raw") {
-            csvData += "," + "," + ",";
+          csvData += '\r\n';
+          csvData += '' + ',' + ',' + ',' + ',';
+          if (refineLvl == 'Raw') {
+            csvData += ',' + ',' + ',';
           }
-          csvData += "\r\n";
+          csvData += '\r\n';
           if (self.userSelectionRawAPI === true) {
             rawApis.forEach((value: APIDetail) => {
+              tableheaders.push('ActionGroup', value.MarkerAction);
+              tableheaders.push('Action Name', value.APIName.toString());
+              tableheaders.push('Total Time (ms)', value.NetTime.toString());
+              tableheaders.push('Total Calls', '1');
+              tableheaders.push('Avg Time Per Call', value.NetTime.toString());
               csvData +=
                 value.MarkerAction +
-                "," +
+                ',' +
                 value.APIName +
-                "," +
-                (value.APIName != "" ? value.NetTime : "") +
-                "," +
-                (value.APIName != "" ? "1" : "") +
-                "," +
-                (value.APIName != "" ? value.NetTime : "");
-              if (refineLvl == "Raw") {
+                ',' +
+                (value.APIName != '' ? value.NetTime : '') +
+                ',' +
+                (value.APIName != '' ? '1' : '') +
+                ',' +
+                (value.APIName != '' ? value.NetTime : '');
+              if (refineLvl == 'Raw') {
                 csvData +=
-                  "," +
-                  (value.APIName != "" ? value.WaitTime : "") +
-                  "," +
-                  (value.APIName != "" ? value.BlockTime : "");
+                  ',' +
+                  (value.APIName != '' ? value.WaitTime : '') +
+                  ',' +
+                  (value.APIName != '' ? value.BlockTime : '');
+                tableheaders.push('Wait Time', value.WaitTime.toString());
+                tableheaders.push('Block time', value.BlockTime.toString());
               }
-              csvData += "\r\n";
+              csvData += '\r\n';
             });
+            self.headers = tableheaders;
+            console.log('this.headers-->' + tableheaders);
           } else {
             allData.forEach(
               (
                 value: [Map<string, APIDetail>, Map<string, APIDetail>],
                 key: string
               ) => {
-                csvData += key + "," + "," + "," + "," + "\r\n";
+                csvData += key + ',' + ',' + ',' + ',' + '\r\n';
                 value[0].forEach((value: APIDetail, keyInner: string) => {
                   csvData +=
                     key +
-                    "," +
+                    ',' +
                     keyInner +
-                    "," +
-                    (keyInner != "" ? value.NetTime : "") +
-                    "," +
-                    (keyInner != "" ? value.NumberOfCalls : "") +
-                    "," +
-                    (keyInner != ""
+                    ',' +
+                    (keyInner != '' ? value.NetTime : '') +
+                    ',' +
+                    (keyInner != '' ? value.NumberOfCalls : '') +
+                    ',' +
+                    (keyInner != ''
                       ? value.NetTime / value.NumberOfCalls
-                      : "") +
-                    "\r\n";
+                      : '') +
+                    '\r\n';
                 });
                 csvData +=
-                  "--------Non Grouped API------" +
-                  "," +
-                  "," +
-                  "," +
-                  "," +
-                  "\r\n";
+                  '--------Non Grouped API------' +
+                  ',' +
+                  ',' +
+                  ',' +
+                  ',' +
+                  '\r\n';
                 value[1].forEach((value: APIDetail, keyInner: string) => {
                   csvData +=
                     key +
-                    "," +
+                    ',' +
                     keyInner +
-                    "," +
-                    (keyInner != "" ? value.NetTime : "") +
-                    "," +
-                    (keyInner != "" ? value.NumberOfCalls : "") +
-                    "," +
-                    (keyInner != ""
+                    ',' +
+                    (keyInner != '' ? value.NetTime : '') +
+                    ',' +
+                    (keyInner != '' ? value.NumberOfCalls : '') +
+                    ',' +
+                    (keyInner != ''
                       ? value.NetTime / value.NumberOfCalls
-                      : "") +
-                    "\r\n";
+                      : '') +
+                    '\r\n';
                 });
-                csvData += "" + "," + "," + "," + "," + "\r\n";
+                csvData += '' + ',' + ',' + ',' + ',' + '\r\n';
               }
             );
           }
           csvData +=
-            "Misc Calls" +
-            "," +
-            "These are usually GET requests like images|css|etc " +
-            "," +
+            'Misc Calls' +
+            ',' +
+            'These are usually GET requests like images|css|etc ' +
+            ',' +
             allOtherTime +
-            "," +
+            ',' +
             allOtherCallCount +
-            "," +
+            ',' +
             allOtherTime / allOtherCallCount +
-            "\r\n";
-          var blob = new Blob([csvData], { type: "text/csv" });
+            '\r\n';
+          var blob = new Blob([csvData], { type: 'text/csv' });
           var url = window.URL.createObjectURL(blob);
           function getfileNameToUse() {
-            return self.fileNameToUse + "_" + getLevel() + ".csv";
+            return self.fileNameToUse + '_' + getLevel() + '.csv';
           }
           if (navigator.msSaveOrOpenBlob) {
             navigator.msSaveBlob(blob, getfileNameToUse());
           } else {
-            var a = document.createElement("a");
+            var a = document.createElement('a');
             a.href = url;
             a.download = getfileNameToUse();
             document.body.appendChild(a);
@@ -442,6 +453,7 @@ export class AppComponent {
           }
           window.URL.revokeObjectURL(url);
         };
+
         downloader();
       };
       try {
@@ -449,7 +461,7 @@ export class AppComponent {
         //eval("remotingcall('Download',getLevel(),'HARParser','Success')");
       } catch (error) {
         alert(
-          "Problem processing HAR. Please contact support : Error -" + error
+          'Problem processing HAR. Please contact support : Error -' + error
         );
         //eval("remotingcall('Download',getLevel(),'HARParser'," + error + ")");
       }

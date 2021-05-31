@@ -118,7 +118,7 @@
 
   .tooltip1 .tooltiptext1 {
     visibility: hidden;
-    width:220px;
+    width: 220px;
     background-color: black;
     color: #fff;
     text-align: center;
@@ -320,10 +320,12 @@
     <div class="container">
       <p>Description</p>
       <div class="table-responsive">
+        {{headers}}
         <table class="table">
           <thead>
             <tr>
               <th>#</th>
+              <!--<th *ngFor="let header of this.headers">{{header}}</th>-->
               <th>ActionGroup</th>
               <th>Action Name</th>
               <th>Total Time (ms)</th>
@@ -334,7 +336,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <!---<tr>
               <td>1</td>
               <td>Action1</td>
               <td>getDefaultLineItemRollup</td>
@@ -343,6 +345,9 @@
               <td>567.378</td>
               <td>567.378</td>
               <td>2.436</td>
+            </tr>-->
+            <tr *ngFor="let item of this.headers">
+              <td>{{ item}}</td>
             </tr>
           </tbody>
         </table>
