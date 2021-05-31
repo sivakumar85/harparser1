@@ -386,8 +386,31 @@ export class AppComponent {
                 value: [Map<string, APIDetail>, Map<string, APIDetail>],
                 key: string
               ) => {
+                rowIndex++;
+                tableheaders['rowIndex'] = rowIndex;
+                tableheaders['ActionGroup'] = key;
+                tableheaders['ActionName'] = '';
+                tableheaders['TotalTimems'] = '';
+                tableheaders['TotalCalls'] = '';
+                tableheaders['AvgTimePerCall'] = '';
+                tableheaders['WaitTime'] = '';
+                tableheaders['Blocktime'] = '';
+                self.headers.push(tableheaders);
                 csvData += key + ',' + ',' + ',' + ',' + '\r\n';
                 value[0].forEach((value: APIDetail, keyInner: string) => {
+                  rowIndex++;
+                  tableheaders['rowIndex'] = rowIndex;
+                  tableheaders['ActionGroup'] = key;
+                  tableheaders['ActionName'] = keyInner;
+                  tableheaders['TotalTimems'] =
+                    keyInner != '' ? value.NetTime : '';
+                  tableheaders['TotalCalls'] =
+                    keyInner != '' ? value.NumberOfCalls : '';
+                  tableheaders['AvgTimePerCall'] =
+                    keyInner != '' ? value.NetTime / value.NumberOfCalls : '';
+                  tableheaders['WaitTime'] = '';
+                  tableheaders['Blocktime'] = '';
+                  self.headers.push(tableheaders);
                   csvData +=
                     key +
                     ',' +
@@ -402,6 +425,16 @@ export class AppComponent {
                       : '') +
                     '\r\n';
                 });
+                rowIndex++;
+                tableheaders['rowIndex'] = rowIndex;
+                tableheaders['ActionGroup'] = '--------Non Grouped API------';
+                tableheaders['ActionName'] = '';
+                tableheaders['TotalTimems'] = '';
+                tableheaders['TotalCalls'] = '';
+                tableheaders['AvgTimePerCall'] = '';
+                tableheaders['WaitTime'] = '';
+                tableheaders['Blocktime'] = '';
+                self.headers.push(tableheaders);
                 csvData +=
                   '--------Non Grouped API------' +
                   ',' +
@@ -424,10 +457,31 @@ export class AppComponent {
                       : '') +
                     '\r\n';
                 });
+                rowIndex++;
+                tableheaders['rowIndex'] = rowIndex;
+                tableheaders['ActionGroup'] = '';
+                tableheaders['ActionName'] = '';
+                tableheaders['TotalTimems'] = '';
+                tableheaders['TotalCalls'] = '';
+                tableheaders['AvgTimePerCall'] = '';
+                tableheaders['WaitTime'] = '';
+                tableheaders['Blocktime'] = '';
+                self.headers.push(tableheaders);
                 csvData += '' + ',' + ',' + ',' + ',' + '\r\n';
               }
             );
           }
+          rowIndex++;
+          tableheaders['rowIndex'] = rowIndex;
+          tableheaders['ActionGroup'] = 'Misc Calls';
+          tableheaders['ActionName'] =
+            'These are usually GET requests like images|css|etc';
+          tableheaders['TotalTimems'] = allOtherTime;
+          tableheaders['TotalCalls'] = allOtherCallCount;
+          tableheaders['AvgTimePerCall'] = allOtherTime / allOtherCallCount;
+          tableheaders['WaitTime'] = '';
+          tableheaders['Blocktime'] = '';
+          self.headers.push(tableheaders);
           csvData +=
             'Misc Calls' +
             ',' +

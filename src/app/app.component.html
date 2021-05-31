@@ -323,7 +323,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>#</th>
+              <th class="header" scope="col">#</th>
               <!-- <th *ngFor="let header of this.headers">{{header}}</th>-->
               <th>ActionGroup</th>
               <th>Action Name</th>
@@ -347,13 +347,13 @@
             </tr>-->
             <tr *ngFor="let item of this.headers">
               <td>{{ item['rowIndex']}}</td>
-              <td>{{ item['ActionGroup']}}</td>
+              <td>{{ item['ActionGroup'] }}</td>
               <td>{{ item['ActionName'] }}</td>
-              <td>{{ item['TotalTimems'] }}</td>
-              <td>{{ item['TotalCalls'] }}</td>
-              <td>{{ item['AvgTimePerCall'] }}</td>
-              <td>{{ item['WaitTime'] }}</td>
-              <td>{{ item['Blocktime'] }}</td>
+              <td>{{ item['TotalTimems'] | number:'1.0-2'}}</td>
+              <td>{{ item['TotalCalls'] | number:'1.0-2'}}</td>
+              <td>{{ item['AvgTimePerCall'] | number:'1.0-2'}}</td>
+              <td>{{ item['WaitTime'] | number:'1.0-2'}}</td>
+              <td>{{ item['Blocktime'] | number:'1.0-2'}}</td>
             </tr>
           </tbody>
         </table>
