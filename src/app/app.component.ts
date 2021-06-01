@@ -9,6 +9,7 @@ import { APIDetail } from './APIDetail';
 export class AppComponent {
   name = 'CPQ API Analyzer ' + '1.0';
   headers: Object[] = [];
+  isShown: boolean = false;
   userSelectionOnlyAPI: boolean = false;
   userSelectionGrouped: boolean = false;
   userSelectionRawAPI: boolean = true;
@@ -32,6 +33,8 @@ export class AppComponent {
   resetFileName = evt => {
     //reset
     evt.target.value = null;
+    this.isShown = false;
+    this.headers = [];
   };
   handleFileInput = event => {
     var self = this;
@@ -329,6 +332,7 @@ export class AppComponent {
           console.debug(refineLvl);
           let tableheaders = new Object();
           let rowIndex = 0;
+          self.isShown = true;
           csvData +=
             'ActionGroup' +
             ',' +
@@ -387,6 +391,7 @@ export class AppComponent {
                 key: string
               ) => {
                 rowIndex++;
+                tableheaders = new Object();
                 tableheaders['rowIndex'] = rowIndex;
                 tableheaders['ActionGroup'] = key;
                 tableheaders['ActionName'] = '';
@@ -399,6 +404,7 @@ export class AppComponent {
                 csvData += key + ',' + ',' + ',' + ',' + '\r\n';
                 value[0].forEach((value: APIDetail, keyInner: string) => {
                   rowIndex++;
+                  tableheaders = new Object();
                   tableheaders['rowIndex'] = rowIndex;
                   tableheaders['ActionGroup'] = key;
                   tableheaders['ActionName'] = keyInner;
@@ -426,6 +432,7 @@ export class AppComponent {
                     '\r\n';
                 });
                 rowIndex++;
+                tableheaders = new Object();
                 tableheaders['rowIndex'] = rowIndex;
                 tableheaders['ActionGroup'] = '--------Non Grouped API------';
                 tableheaders['ActionName'] = '';
@@ -458,6 +465,7 @@ export class AppComponent {
                     '\r\n';
                 });
                 rowIndex++;
+                tableheaders = new Object();
                 tableheaders['rowIndex'] = rowIndex;
                 tableheaders['ActionGroup'] = '';
                 tableheaders['ActionName'] = '';
@@ -472,6 +480,7 @@ export class AppComponent {
             );
           }
           rowIndex++;
+          tableheaders = new Object();
           tableheaders['rowIndex'] = rowIndex;
           tableheaders['ActionGroup'] = 'Misc Calls';
           tableheaders['ActionName'] =
