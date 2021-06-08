@@ -246,109 +246,129 @@
   </div>
 </div>
 <br />
+
 <!-- Main component for a primary marketing message or call to action -->
 <div class="container">
   <div class="jumbotron">
-    <div class="alert alert-info" role="alert">
-      <h4 class="alert-heading">Choose Download Detail Level:</h4>
-      <div class="radio">
-        <label>
-          <input
-            type="radio"
-            id="groupedAPI"
-            name="selectionInfo"
-            [checked]="userSelectionRawAPI"
-            (change)="handleRawApiChange($event)"
-          />Raw API Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will download the most simple format of API data(no added processing)</span></i>
-      </div>
-      <div class="radio">
-        <label>
-          <input
-            type="radio"
-            id="onlyAPI"
-            name="selectionInfo"
-            [checked]="userSelectionOnlyAPI"
-            (change)="handleOnlyAPIChange($event)"
-          />Grouped API Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will group together API names with same name , providing better processing</span></i>
-      </div>
-      <div class="radio">
-        <label
-          ><input
-            type="radio"
-            id="groupedAPI"
-            name="selectionInfo"
-            [checked]="userSelectionGrouped"
-            (change)="handleGroupeChange($event)"
-          />Action Grouped Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will process data at user action level e.g Pricing, Finalize etc(most processed data)</span></i>
-      </div>
-      <div></div>
-      <hr />
-      <div>
-        <div class="container">
-          <div class="form-horizontal">
-            <div class="form-group">
-              <div class="row">
-                <label class="control-label col-md-2 text-left" for="filename"
-                  ><span>Upload HAR</span></label>
+    <div class="container" style="background-color: #eee;">
+      <div class="row">
+        <div>
 
-                <div class="col-md-8">
-                  <div class="input-group">
-                    <input
-                      type="hidden"
-                      id="filename"
-                      name="filename"
-                      value=""
-                    />
+          <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#home" data-toggle="tab">HAR</a></li>
+            <li><a href="#profile" data-toggle="tab">PROFILE</a></li>
 
-                    <input
-                      type="file"
-                      id="file"
-                      class="form-control form-control-sm"
-                      (click)="this.resetFileName($event)"
-                      (change)="this.handleFileInput($event)"
-                    />
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+              <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">Choose Download Detail Level:</h4>
+                <div class="radio">
+                  <label>
+                      <input
+                        type="radio"
+                        id="groupedAPI"
+                        name="selectionInfo"
+                        [checked]="userSelectionRawAPI"
+                        (change)="handleRawApiChange($event)"
+                      />Raw API Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will download the most simple format of API data(no added processing)</span></i>
+                </div>
+                <div class="radio">
+                  <label>
+                      <input
+                        type="radio"
+                        id="onlyAPI"
+                        name="selectionInfo"
+                        [checked]="userSelectionOnlyAPI"
+                        (change)="handleOnlyAPIChange($event)"
+                      />Grouped API Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will group together API names with same name , providing better processing</span></i>
+                </div>
+                <div class="radio">
+                  <label
+                      ><input
+                        type="radio"
+                        id="groupedAPI"
+                        name="selectionInfo"
+                        [checked]="userSelectionGrouped"
+                        (change)="handleGroupeChange($event)"
+                      />Action Grouped Data</label>&nbsp;<i class="fa fa-info-circle tooltip1"><span class="tooltiptext1">This option will process data at user action level e.g Pricing, Finalize etc(most processed data)</span></i>
+                </div>
+                <div></div>
+                <hr />
+                <div>
+                  <div class="container">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <div class="row">
+                          <label class="control-label col-md-2 text-left" for="filename"
+                              ><span>Upload HAR</span></label>
+
+                          <div class="col-md-8">
+                            <div class="input-group">
+                              <input
+                                  type="hidden"
+                                  id="filename"
+                                  name="filename"
+                                  value=""
+                                />
+
+                              <input
+                                  type="file"
+                                  id="file"
+                                  class="form-control form-control-sm"
+                                  (click)="this.resetFileName($event)"
+                                  (change)="this.handleFileInput($event)"
+                                />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+
+                </div>
+              </div>
+              <div class="container" *ngIf="isShown">
+                <p>Description</p>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="header" scope="col">#</th>
+                        <!-- <th *ngFor="let header of this.headers">{{header}}</th>-->
+                        <th>ActionGroup</th>
+                        <th>Action Name</th>
+                        <th>Total Time (ms)</th>
+                        <th>Total Calls</th>
+                        <th>Avg Time Per Call</th>
+                        <th>Wait Time</th>
+                        <th>Block time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of this.headers">
+                        <td>{{ item['rowIndex']}}</td>
+                        <td>{{ item['ActionGroup'] }}</td>
+                        <td>{{ item['ActionName'] }}</td>
+                        <td>{{ item['TotalTimems'] | number:'1.0-2'}}</td>
+                        <td>{{ item['TotalCalls'] | number:'1.0-2'}}</td>
+                        <td>{{ item['AvgTimePerCall'] | number:'1.0-2'}}</td>
+                        <td>{{ item['WaitTime'] | number:'1.0-2'}}</td>
+                        <td>{{ item['Blocktime'] | number:'1.0-2'}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
+        <div class="tab-pane" id="profile">
+        </div>
 
-
-      </div>
-    </div>
-    <div class="container" *ngIf="isShown">
-      <p>Description</p>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="header" scope="col">#</th>
-              <!-- <th *ngFor="let header of this.headers">{{header}}</th>-->
-              <th>ActionGroup</th>
-              <th>Action Name</th>
-              <th>Total Time (ms)</th>
-              <th>Total Calls</th>
-              <th>Avg Time Per Call</th>
-              <th>Wait Time</th>
-              <th>Block time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of this.headers">
-              <td>{{ item['rowIndex']}}</td>
-              <td>{{ item['ActionGroup'] }}</td>
-              <td>{{ item['ActionName'] }}</td>
-              <td>{{ item['TotalTimems'] | number:'1.0-2'}}</td>
-              <td>{{ item['TotalCalls'] | number:'1.0-2'}}</td>
-              <td>{{ item['AvgTimePerCall'] | number:'1.0-2'}}</td>
-              <td>{{ item['WaitTime'] | number:'1.0-2'}}</td>
-              <td>{{ item['Blocktime'] | number:'1.0-2'}}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
-
 </div>
