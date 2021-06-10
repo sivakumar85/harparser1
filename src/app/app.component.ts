@@ -1,6 +1,8 @@
-import { Component, Input, VERSION } from '@angular/core';
+import { Component, Input, VERSION, Pipe, PipeTransform } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { APIDetail } from './APIDetail';
+import { SearchFilterPipe } from './Search-Filter.pipe';
+import { SortFilterPipe } from './Sort-Filter.pipe';
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
